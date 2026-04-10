@@ -56,14 +56,25 @@ def takeoff_sequence():
         set_mode_raw(0)
         time.sleep(2)
         
-        print("STEP 1: ARMING...")
-        master.mav.command_long_send(master.target_system, master.target_component, 400, 0, 1, 0, 0, 0, 0, 0, 0)
-        time.sleep(4) 
+        print("STEP 1: WAITING FOR MANUAL ARM (USE TRANSMITTER)...")
+        drone_state["status"] = "PLEASE ARM NOW"
         
-        if not drone_state["armed"]:
-            drone_state["status"] = "ARM FAILED"
-            mission_lock = False
-            return
+        # RELEASE CHANNELS 1-4 (set to 0) so the transmitter can work!
+        master.mav.rc_channels_override_send(master.target_system, master.target_component, 0, 0, 0, 0, 1100, 0, 0, 0)
+        
+        # Wait up to 30 seconds for external arming
+        start_wait = time.time()
+        while not drone_state["armed"]:
+            time.sleep(0.1)
+            if time.time() - start_wait > 30:
+                print("WAITING TIMEOUT. MISSION CANCELLED.")
+                drone_state["status"] = "TIMEOUT"
+                mission_lock = False
+                return
+
+        print("ARM DETECTED! PROCEEDING...")
+        drone_state["status"] = "ARMED SUCCESS"
+        time.sleep(1) 
 
         print("STEP 2: ALT_HOLD...")
         set_rc_raw(ch5=1300) # Slot 2

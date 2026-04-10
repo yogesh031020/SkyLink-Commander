@@ -52,7 +52,9 @@ The drone successfully executed an autonomous takeoff to 1 meter and a controlle
 3. **Engage Mission:**
    * Run `python3 commander.py`.
    * Open HUD at `http://<pi-ip>:8000`.
-   * Wait for barometer calibration, Zero the HUD, and click **Takeoff**.
+   * Click **AUTONOMOUS TAKEOFF** (The HUD will say "PLEASE ARM NOW").
+   * **Arm your drone manually** with your transmitter stick (Bottom-Right corner).
+   * Once detected, the Pi will automatically switch to Alt-Hold and Takeoff!
 
 ## ⚠️ Important Note for Phase 2
 The APM 2.8 may still require a **1000uF 16V Capacitor** on the power rail if any vibration-induced resets occur during high-throttle maneuvers.
