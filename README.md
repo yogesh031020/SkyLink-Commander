@@ -1,16 +1,16 @@
-\# 📡 SkyLink Commander: Web-Based UAV GCS
+﻿\# ðŸ“¡ SkyLink Commander: Web-Based UAV GCS
 
 \*\*High-Level Companion Computer (RPi 4) \& MAVLink Integration\*\*
 
 
 
-\### 📝 Project Overview
+\### ðŸ“ Project Overview
 
 SkyLink Commander is a custom \*\*Ground Control Station (GCS)\*\* and companion computer interface designed to bridge the gap between legacy flight controllers (APM 2.8) and modern web-based monitoring.
 
 
 
-\### 🛠️ System Architecture
+\### ðŸ› ï¸ System Architecture
 
 ```mermaid
 
