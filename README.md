@@ -16,11 +16,11 @@ SkyLink Commander is a custom \*\*Ground Control Station (GCS)\*\* and companion
 
 graph LR
 
-&#x20;   User\[Web HUD] -->|WebSocket/HTTP| RPi\[Raspberry Pi 4]
+    User\[Web HUD] -->|WebSocket/HTTP| RPi\[Raspberry Pi 4]
 
-&#x20;   RPi -->|MAVLink/Serial| FC\[APM 2.8 Flight Controller]
+    RPi -->|MAVLink/Serial| FC\[APM 2.8 Flight Controller]
 
-&#x20;   FC -->|PWM| Motors\[UAV Motors]
+    FC -->|PWM| Motors\[UAV Motors]
 
 
 
