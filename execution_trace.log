@@ -1,0 +1,25 @@
+pi@raspberrypi:~/SkyLink-Commander $ python3 commander.py --port /dev/ttyUSB0 --baud 57600
+[INFO] Starting SkyLink-Commander...
+[INFO] Connecting to APM 2.8 on /dev/ttyUSB0 at 57600 baud...
+[MAVLink] Connection established.
+[MAVLink] Heartbeat received from System 1, Component 1
+[MAVLink] APM 2.8 Firmware Version 3.2.1
+[SYS] Setting MAV_DATA_STREAM for ATTITUDE, GPS_RAW_INT, SYS_STATUS at 2Hz...
+[SYS] Data streams configured successfully.
+[Flask] Starting web dashboard server...
+ * Serving Flask app "commander" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+[WebSocket] Client connected: 192.168.1.104
+[HUD] Streaming telemetry data...
+[MAVLink] PRE-ARM CHECK: GPS Lock (3D Fix) - OK
+[MAVLink] PRE-ARM CHECK: Battery (11.8V) - OK
+[MAVLink] PRE-ARM CHECK: Barometer health - OK
+[WebSocket] Received command: ARM
+[MAVLink] Sending ARM command to vehicle...
+[MAVLink] Vehicle is ARMED
+[WebSocket] Received command: TAKEOFF
+[MAVLink] Sending TAKEOFF command (target alt: 2m)...
