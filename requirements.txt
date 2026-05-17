@@ -1,0 +1,4 @@
+Flask==3.0.3
+Flask-SocketIO==5.3.6
+dronekit==2.9.2
+pymavlink==2.4.41
