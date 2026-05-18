@@ -4,7 +4,7 @@ Web-based ground control station running on a Raspberry Pi 4, bridging a browser
 
 ## 📸 Web HUD Dashboard Interface
 <div align="center">
-  <img src="docs/images/skylink_real_hud.png" width="800" alt="SkyLink Commander Web HUD">
+  <img src="docs/images/skylink_gcs_dashboard.png" width="800" alt="SkyLink Commander Web HUD">
   <p><i>Asynchronous Glassmorphism HUD Dashboard with Live Telemetry Tracking & Mission Control Console</i></p>
 </div>
 
