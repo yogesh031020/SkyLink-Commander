@@ -16,28 +16,76 @@ Browser (any device) ←→ WebSocket ←→ Flask (RPi 4)
                                        Motors
 ```
 
-## Setup
+## 🔌 Wiring Schematic & System Topology
 
-`setup_drone.py` runs the pre-arm sequence: checks GPS lock, battery voltage, RC calibration status, and barometer health before allowing takeoff commands. Prevents arming if any check fails.
+The physical hardware connects the Raspberry Pi 4's USB serial controller directly to the APM 2.8's UART port using a bi-directional CP2102 USB-to-TTL Serial adapter.
 
-## Hardware
+```mermaid
+graph TD
+    subgraph Client Layer
+        Browser[Any Client Device Browser]
+    end
 
-| Component | Role |
-|---|---|
-| Raspberry Pi 4 (2GB) | Companion computer + GCS server |
-| APM 2.8 | Flight controller |
-| USB-to-Serial (CP2102) | RPi ↔ APM UART connection |
-| Any browser device | HUD client |
+    subgraph Server Layer (Raspberry Pi 4)
+        WebUI[FastAPI Web Server]
+        WSS[WebSocket Telemetry Server]
+        Browser <-->|HTTP Request Port 8000| WebUI
+        Browser <-->|WebSocket Stream| WSS
+    end
 
-## Run it
+    subgraph Hardware Link
+        CP2102[CP2102 USB-to-TTL Adapter]
+        WSS <-->|Async Serial Read/Write| CP2102
+    end
 
-```bash
-# On the Raspberry Pi:
-pip install dronekit flask flask-socketio pymavlink
-python commander.py --port /dev/ttyUSB0 --baud 57600
+    subgraph Flight Avionics
+        APM[APM 2.8 Autopilot]
+        CP2102 <-->|Tx ➔ Rx | APM
+        CP2102 <-->|Rx ➔ Tx | APM
+        CP2102 <-->|Common Ground| APM
+    end
 ```
 
-Then open `http://:5000` on any device on the same network.
+---
+
+## 🛠️ Step-by-Step "How to Run" Guide
+
+Follow these instructions to configure, deploy, and launch your Custom GCS:
+
+### 1. Prerequisite Installations
+Ensure Python 3.9+ is installed on your Raspberry Pi companion computer. Install the asynchronous network libraries and MAVLink wrappers:
+```bash
+pip install fastapi uvicorn pymavlink websockets
+```
+
+### 2. Physical Hardware Connection
+1. Connect the **CP2102 USB side** into one of the Raspberry Pi 4 USB ports.
+2. Wire the CP2102 TTL side to the **APM 2.8 Telem port** (or serial ports) as follows:
+   * CP2102 `TX` ➔ APM `RX`
+   * CP2102 `RX` ➔ APM `TX`
+   * CP2102 `GND` ➔ APM `GND`
+   * *Do NOT wire 5V or VCC pins together if both boards are independently powered.*
+
+### 3. Deploy the Ground Control Station
+Execute the commander daemon, mapping your designated serial interface:
+```bash
+# If using direct Pi GPIO UART pins (/dev/ttyS0)
+python commander.py
+
+# If using a USB-to-Serial adapter (/dev/ttyUSB0)
+# (Note: Update the connection port in commander.py if using USB0)
+python commander.py
+```
+
+### 4. Connect the Client Interface
+Open a browser on any laptop, tablet, or mobile phone connected to the **same local network** and navigate to:
+```
+http://<RASPBERRY_PI_IP_ADDRESS>:8000
+```
+*You will immediately view the real-time glassmorphism HUD dashboard showing live altimeter updates, system diagnostics, and flight log streaming.*
+
+---
+
 
 ## HUD features
 
