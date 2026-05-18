@@ -2,6 +2,15 @@
 
 Web-based ground control station running on a Raspberry Pi 4, bridging a browser HUD to an APM 2.8 flight controller over MAVLink. Built because Mission Planner is overkill for simple autonomous missions and doesn't run well on Pi — I wanted a lightweight custom GCS I could access from any device on the same network.
 
+## 📸 Web HUD Dashboard Interface
+<div align="center">
+  <img src="docs/images/skylink_hud.png" width="800" alt="SkyLink Commander Web HUD">
+  <p><i>Asynchronous Glassmorphism HUD Dashboard with Live Telemetry Tracking & Mission Control Console</i></p>
+</div>
+
+---
+
+
 ## What it does
 
 `commander.py` opens a MAVLink serial connection to the APM 2.8, starts a Flask web server, and streams live telemetry to a browser dashboard over WebSocket. The HUD shows heading, altitude, airspeed, battery voltage, and flight mode — updating every 500ms. Takeoff and landing are triggered from the browser with a single button, which calls the pre-arm check sequence first.
