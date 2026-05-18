@@ -93,6 +93,14 @@ http://<RASPBERRY_PI_IP_ADDRESS>:8000
 ```
 *You will immediately view the real-time glassmorphism HUD dashboard showing live altimeter updates, system diagnostics, and flight log streaming.*
 
+### 🖥️ Mock Simulation Mode (No Hardware Required)
+If you don't have the physical quadcopter or APM flight controller connected but want to preview the fully functional, animated dashboard immediately, execute the simulated GCS loop:
+```bash
+python mock_commander.py
+```
+Then open `http://localhost:8000` in your browser. This spins up a mock telemetry generator simulating altimeter climb, armed states, and HUD log outputs dynamically.
+
+
 ---
 
 
